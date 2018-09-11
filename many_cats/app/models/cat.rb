@@ -14,13 +14,14 @@
 
 class Cat < ApplicationRecord
   COLORS = {orange:"Orange",black:"Black",tabby:"Tabby",white:"White"}
+  SEXES = {male:"M",female:"F"}
   
   validates :birth_date, :color, :name, :sex, presence: true
-  validates :sex, inclusion: {in: ["M","F"]}
-  validates :color, inclusion: {in: COLORS}
+  validates :sex, inclusion: {in: SEXES.values}
+  validates :color, inclusion: {in: COLORS.values}
   
   def age
     # DateTime.now - DateTime.new(birth_date)
   end
-  
+
 end

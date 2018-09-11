@@ -1,0 +1,40 @@
+<form action="<%=action%>" method = "post">
+  <%if cat.persisted?%>
+    <input action="<%=action%>" type="hidden" name="_method" value="patch">
+  <%end%>
+  <label>Name:
+    <input type="text" name="cat[name]" value= "<%= cat.name %>" >
+    <br>
+  </label>
+  <label>Sex:
+      <input type="radio" name="cat[sex]" value="M" <%= cat.sex == "M" ? "checked" : "" %>>M
+      <input type="radio" name="cat[sex]" value="F" <%= cat.sex == "F" ? "checked" : ""%>>F
+    <br>
+  </label>
+  <label>Color:
+    <select name="cat[color]" id="cat_color"> 
+      <option value="" selected="true" disabled="true">-- select a color --</option>
+      <%Cat::COLORS.each do |color|%>
+        <%if color.last == cat.color%>
+          <option value="<%=color.last%>" selected="true"><%=color.last%></option>
+        <%else%>
+          <option value="<%=color.last%>"><%=color.last%></option>
+        <% end %>
+      <% end %>
+    </select>
+    <br>
+  </label>
+  <label> Birthday:
+    <input type="date" name="cat[birth_date]" value="<%= cat.birth_date %>">
+    <br>
+  </label>
+  <label>Description:
+    <input type="textarea" name="cat[description]" value="<%= cat.description %>">
+    <br>
+  </label>
+  <%if type == "edit"%>
+    <input type="submit" value="Edit Cat" >
+  <%elsif type == "new"%>
+    <input type="submit" value="New Cat" >
+  <%end%>
+</form>
