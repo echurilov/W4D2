@@ -1,0 +1,41 @@
+<h1>Edit Cat</h1>
+<%= render 'form', cat: cat %>
+<form action="/cats/:cats_id/edit" method = "post">
+  <input type="hidden" name="_method" value="patch">
+  <label>Name:
+    <input type="text" name="cats[name]" value= "<%= cat.name %>" >
+    <br>
+  </label>
+  <label>Sex:
+    <%if cat.sex == "M" %>
+      <input type="radio" name="cats[sex]" checked= "true" value="M">M
+      <input type="radio" name="cats[sex]" value="F">F
+    <%elsif cat.sex == "F" %>
+      <input type="radio" name="cats[sex]" value="M">M
+      <input type="radio" name="cats[sex]" checked= "true" value="F">F
+    <%end%>
+    <br>
+  </label>
+  <label>Color:
+    <select name="cats[color]" id="cats_color"> 
+      <option value="" selected="true" disabled="true">-- select a color --</option>
+      <%Cat::COLORS.each do |color|%>
+        <%if color.last == cat.color%>
+          <option value="<%=color.first%>" selected="true"><%=color.last%></option>
+        <%else%>
+          <option value="<%=color.first%>"><%=color.last%></option>
+        <% end %>
+      <% end %>
+    </select>
+    <br>
+  </label>
+  <label> Birthday:
+    <input type="date" name="cats[birth_date]" value="<%= cat.birth_date %>">
+    <br>
+  </label>
+  <label>Description:
+    <input type="textarea" name="cats[description]" value="<%= cat.description %>">
+    <br>
+  </label>
+  <input type="submit" value="New Cat">
+</form>
