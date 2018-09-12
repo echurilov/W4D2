@@ -20,6 +20,11 @@ class Cat < ApplicationRecord
   validates :sex, inclusion: {in: SEXES.values}
   validates :color, inclusion: {in: COLORS.values}
   
+  has_many :rental_requests,
+  foreign_key: :cat_id,
+  class_name: :CatRentalRequest,
+  dependent: :destroy
+  
   def age
     # DateTime.now - DateTime.new(birth_date)
   end
